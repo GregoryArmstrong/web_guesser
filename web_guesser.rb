@@ -2,7 +2,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 
 SECRET_NUMBER = rand(100)
-number = SECRET_NUMBER
 
 def check_guess(num)
   message = "Too low!" if num < SECRET_NUMBER
@@ -28,9 +27,14 @@ def background_set(message)
   end
 end
 
+def reveal_message(guess, secret)
+  "The SECRET NUMBER is #{secret}" if guess == secret
+end
+
 get '/' do
   guess = params["guess"].to_i
   message = check_guess(guess)
   background = background_set(message)
-  erb :index, :locals => {:number => number, :message => message, :background => background}
+  reveal = reveal_message(guess, SECRET_NUMBER)
+  erb :index, :locals => {:reveal => reveal, :message => message, :background => background}
 end
