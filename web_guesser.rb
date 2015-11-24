@@ -26,7 +26,6 @@ def background_set(message)
   when "Too high!"
     background = "pink"
   end
-  background
 end
 
 get '/' do
