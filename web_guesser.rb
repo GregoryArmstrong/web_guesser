@@ -13,18 +13,10 @@ def check_guess(num)
 end
 
 def background_set(message)
-  case message
-  when "You got it right!"
-    background = "green"
-  when "Way too low!"
-    background = "red"
-  when "Way too high!"
-    background = "red"
-  when "Too low!"
-    background = "pink"
-  when "Too high!"
-    background = "pink"
-  end
+  background = "red" if message.include?("Way")
+  background = "pink" if !message.include?("Way")
+  background = "green" if message.include?("right!")
+  background
 end
 
 def reveal_message(guess, secret)
